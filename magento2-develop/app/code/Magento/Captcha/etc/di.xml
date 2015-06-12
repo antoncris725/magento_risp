@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Captcha\Model\DefaultModel">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Captcha\Model\Observer">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\Controller\Ajax\Login">
+        <plugin name="configurable_product" type="Magento\Captcha\Model\Customer\Plugin\AjaxLogin" sortOrder="50" />
+    </type>
+    <type name="Magento\Quote\Model\AddressAdditionalDataProcessor">
+        <plugin name="captcha_validation" type="\Magento\Captcha\Model\Checkout\Plugin\Validation" />
+    </type>
+    <type name="Magento\Captcha\Model\Checkout\Plugin\Validation">
+        <arguments>
+            <argument name="formIds" xsi:type="array">
+                <item name="user_login" xsi:type="string">user_login</item>
+                <item name="guest_checkout" xsi:type="string">guest_checkout</item>
+                <item name="register_during_checkout" xsi:type="string">register_during_checkout</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
